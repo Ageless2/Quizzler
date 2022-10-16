@@ -55,12 +55,7 @@ class _QuizState extends State<Quiz> {
               onPressed: () {
                 setState(
                   () {
-                    if (true == questionss.correctAnswer()) {
-                      questionss.correct();
-                    } else {
-                      questionss.wrong();
-                    }
-                    questionss.incCounter();
+                    questionss.checkAnswer(true);
                   },
                 );
               },
@@ -78,12 +73,7 @@ class _QuizState extends State<Quiz> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (false == questionss.correctAnswer()) {
-                    questionss.correct();
-                  } else {
-                    questionss.wrong();
-                  }
-                  questionss.incCounter();
+                  questionss.checkAnswer(false);
                 });
               },
               child: const Text(

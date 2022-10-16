@@ -74,6 +74,15 @@ class Quizbrain {
     return _questionBank[_counter].answer;
   }
 
+  void checkAnswer(bool userPickedAnswer) {
+    if (userPickedAnswer == correctAnswer()) {
+      correct();
+    } else {
+      wrong();
+    }
+    incCounter();
+  }
+
   void incCounter() {
     if (_counter < _questionBank.length - 1) {
       _counter++;
