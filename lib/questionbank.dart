@@ -1,10 +1,12 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, non_constant_identifier_names, avoid_types_as_parameter_names
 
 import 'question.dart';
 import 'package:flutter/material.dart';
 
+//These is a list called questionbank.it contains both questions and its respective
+// answers.
 class Quizbrain {
-  final List<Question> _questionBank = [
+  final List<Question> questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -32,66 +34,63 @@ class Quizbrain {
         true),
   ];
 
-  List<Icon> _scoreKeeper = [];
+  // This is a List of icons to show whether user got it right or wrong
+  //after answering a question.
 
-  int _counter = 0;
-  void correct() {
-    if (_counter < _questionBank.length &&
-        _scoreKeeper.length <= _questionBank.length - 1) {
-      _scoreKeeper.add(
+  final List<Icon> scoreKeeper = [];
+
+  int counter = 0;
+
+  void reset() {
+    counter = 0;
+    scoreKeeper.clear();
+  }
+
+  //Displays next question in the list of questions
+
+  String nextQuestion() {
+    return questionBank[counter].questiontext;
+  }
+
+  // Returns the current question's answer
+
+  bool correctAnswer() {
+    return questionBank[counter].answer;
+  }
+
+  // Checks if userpicked answer == correctanswer
+  // Then update the scorekeeper
+
+  void checkAnswer(bool userPickedAnswer) {
+    if (userPickedAnswer == correctAnswer() &&
+        scoreKeeper.length < questionBank.length) {
+      scoreKeeper.add(
         const Icon(
           Icons.check,
           color: Colors.green,
         ),
       );
-    }
-  }
-
-  void wrong() {
-    if (_counter < _questionBank.length &&
-        _scoreKeeper.length <= _questionBank.length - 1) {
-      _scoreKeeper.add(
-        const Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
-  }
-
-  void reset() {
-    {
-      _counter = 0;
-      _scoreKeeper = [];
-    }
-  }
-
-  String nextQuestion() {
-    return _questionBank[_counter].questiontext;
-  }
-
-  bool correctAnswer() {
-    return _questionBank[_counter].answer;
-  }
-
-  void checkAnswer(bool userPickedAnswer) {
-    if (userPickedAnswer == correctAnswer()) {
-      correct();
     } else {
-      wrong();
+      if (scoreKeeper.length < questionBank.length) {
+        scoreKeeper.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
     }
-    incCounter();
   }
 
   void incCounter() {
-    if (_counter < _questionBank.length - 1) {
-      _counter++;
-    } else {
-      reset();
+    if (counter < questionBank.length - 1) {
+      counter++;
     }
   }
 
-  List<Icon> displayIcon() {
-    return _scoreKeeper;
+  void checkScorekeeper(Function) {
+    if (counter >= questionBank.length - 1) {
+      Function;
+    }
   }
 }

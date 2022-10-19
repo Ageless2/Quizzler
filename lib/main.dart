@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'questionbank.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(const Quizzler());
@@ -32,6 +33,26 @@ class Quiz extends StatefulWidget {
 Quizbrain questionss = Quizbrain();
 
 class _QuizState extends State<Quiz> {
+  void alert() {
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: "RFLUTTER ALERT",
+      desc: "You ",
+      buttons: [
+        DialogButton(
+          child: const Text(
+            "COOL",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+        )
+      ],
+    ).show();
+    questionss.reset();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -53,11 +74,11 @@ class _QuizState extends State<Quiz> {
             color: Colors.green,
             child: TextButton(
               onPressed: () {
-                setState(
-                  () {
-                    questionss.checkAnswer(true);
-                  },
-                );
+                setState(() {
+                  questionss.checkAnswer(true);
+                  questionss.checkScorekeeper(alert);
+                  questionss.incCounter();
+                });
               },
               child: const Text(
                 'True',
@@ -74,6 +95,8 @@ class _QuizState extends State<Quiz> {
               onPressed: () {
                 setState(() {
                   questionss.checkAnswer(false);
+                  questionss.checkScorekeeper(alert);
+                  questionss.incCounter();
                 });
               },
               child: const Text(
@@ -83,7 +106,7 @@ class _QuizState extends State<Quiz> {
             ),
           ),
         ),
-        Row(children: questionss.displayIcon())
+        Row(children: questionss.scoreKeeper)
       ],
     );
   }
