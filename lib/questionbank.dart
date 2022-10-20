@@ -88,9 +88,82 @@ class Quizbrain {
     }
   }
 
-  void checkScorekeeper(Function) {
+  void checkScorekeeper(BuildContext context, Function()? onTap) {
     if (counter >= questionBank.length - 1) {
-      Function;
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: SizedBox(
+              height: 180,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: onTap,
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'Finished',
+                      style: TextStyle(
+                          fontFamily: 'Jakarta',
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'You\'ve reached the end of the quiz',
+                      style: TextStyle(
+                          fontFamily: 'Jakarta',
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: onTap,
+                      child: Container(
+                        height: 50,
+                        width: 300,
+                        color: Colors.blue,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: const Center(
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                                fontFamily: 'Jakarta',
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
     }
   }
 }

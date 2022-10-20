@@ -76,7 +76,14 @@ class _QuizState extends State<Quiz> {
               onPressed: () {
                 setState(() {
                   questionss.checkAnswer(true);
-                  questionss.checkScorekeeper(alert);
+                  questionss.checkScorekeeper(
+                    context,
+                    () {
+                      Navigator.pop(context);
+                      questionss.reset();
+                      setState(() {});
+                    },
+                  );
                   questionss.incCounter();
                 });
               },
@@ -95,7 +102,14 @@ class _QuizState extends State<Quiz> {
               onPressed: () {
                 setState(() {
                   questionss.checkAnswer(false);
-                  questionss.checkScorekeeper(alert);
+                  questionss.checkScorekeeper(
+                    context,
+                    () {
+                      Navigator.pop(context);
+                      questionss.reset();
+                      setState(() {});
+                    },
+                  );
                   questionss.incCounter();
                 });
               },
